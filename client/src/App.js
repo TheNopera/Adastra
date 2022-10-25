@@ -17,18 +17,19 @@ function App() {
 
   const submitHandler = e => {
     e.preventDefault();
+    console.log(JSON.stringify(data))
     fetch('http://localhost:3001/store-data',{
       method:'POST',
+      headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(data)
     }).then(function(response){
-      console.log(response)
       return response.json();
-    });
+    }).catch(err => console.log(err));
   }
 
   return (
     <div className="App">
-      <h1>CRUD APPLICATION</h1>
+      <h1>REGISTER</h1>
       
       <form onSubmit={submitHandler} className="form">
         <label >Nome</label>

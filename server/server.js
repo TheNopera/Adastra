@@ -6,6 +6,7 @@ const cors = require("cors");
 
 app.use(cors());
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true}))
 
 
 const db = mysql.createConnection({
@@ -21,18 +22,18 @@ db.connect((err) =>{
   });
 
 app.post('/store-data', (req,res)=>{
-   
-    var Email= req.body.Email;
-    console.log(Email);
-    var Nome= req.body.Nome;
-    var Sobrenome= req.body.Sobrenome;
+    let data = {
+        Email: req.body.Email,
+        Nome: req.body.Nome,
+        Sobrenome: req.body.Sobrenome
+    }
     
-    let sql = `INSERT INTO users (Email, Nome, Sobrenome) VALUES("${Email}", "${Nome}","${Sobrenome}")`;
-    db.query(sql,(err,result)=>{
+    let sql = "INSERT INTO users SET ?";
+    db.query(sql,data, (err,result)=>{
         if(err) throw err;
         res.send(JSON.stringify({"status": 200, "error": null, "response": result}));
     })
-})
+})//
 
 app.listen(3001, ()=>{
     console.log('running on port 3001');
