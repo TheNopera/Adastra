@@ -1,0 +1,33 @@
+body {
+    margin: 0;
+}
+
+.NavBar {
+    background-color: black;
+    color: floralwhite;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 30px 35px 30px 111px ;
+    align-items: center;
+}
+
+.NavBar_Icons img{
+    width: 24px;
+    height: 25px;
+    padding: 0px 18px;
+}
+
+.NavBar_LeftItem li{
+    display: inline-block;
+    padding: 0px 36px;
+    font-size: 20px;
+    font-family: 'Inter';
+}
+
+.NavBar label{
+    
+    font-family: 'Inter';
+    font-size: 32px;
+    font-weight: bold;
+}
