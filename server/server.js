@@ -4,40 +4,49 @@ const mysql = require('mysql2')
 const bodyParser = require('body-parser');
 const cors = require("cors");
 
+
 app.use(cors());
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true}))
+app.use(bodyParser.urlencoded({ extended: true }))
 
 
 const db = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password:'derp123456789',
+    password: 'derp123456789',
     database: 'userdb'
 })
 
-db.connect((err) =>{
-    if(err) throw err;
+db.connect((err) => {
+    if (err) throw err;
     console.log('Mysql Connected...');
-  });
+});
 
-app.post('/store-data', (req,res)=>{
+app.post('/store-data', async (req, res) => {
     let data = {
         Email: req.body.Email,
         Nome: req.body.Nome,
-        Sobrenome: req.body.Sobrenome
+        Sobrenome: req.body.Sobrenome,
+        Senha: req.body.Senha
     }
-    
     let sql = "INSERT INTO users SET ?";
-    db.query(sql,data, (err,result)=>{
-        if(err) throw err;
-        res.send(JSON.stringify({"status": 200, "error": null, "response": result}));
+    const sqlSearch = "SELECT * FROM users WHERE Email = ?";
+    db.query(sqlSearch, [req.body.Email], (err, result) => {
+        console.log(result)
+        if (result.length != 0) {
+            console.log("------> User already exists");
+            res.sendStatus(409);
+        } else {
+            db.query(sql, data, (err, result) => {
+                if (err) throw err;
+                res.sendStatus(201);
+            })
+        }
     })
-})//
+})
 
-app.listen(3001, ()=>{
+app.listen(3001, () => {
     console.log('running on port 3001');
 })
 
 
-    

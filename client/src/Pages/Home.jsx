@@ -13,7 +13,7 @@ function Home() {
             <div className="Home_Products">
                 <h1>PRODUTOS</h1>
                 <div className="Home_Products_Grid">
-                    <h1> IN CONSTRUCTION</h1>
+                    <h1> UNDER CONSTRUCTION</h1>
                 </div>
             </div>
             <footer>

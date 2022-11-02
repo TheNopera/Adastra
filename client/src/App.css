@@ -1,20 +1,26 @@
-.Register{
+.Register, .Login{
   text-align: center;
 }
 
-.Register_form{
+.Register_form, .Login_form{
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 
-.Register_form input{
+.Register_form input, .Login_form input{
   width: 300px;
   height: 60px;
   margin: 10px;
   font-size: 25px;
 }
+
+.Register_error{
+  visibility: hidden;
+  color: red;
+}
+
 .Home{
   display: flex;
   flex-direction: column;
