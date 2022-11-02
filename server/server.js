@@ -22,6 +22,7 @@ db.connect((err) => {
     console.log('Mysql Connected...');
 });
 
+// ADD NEW USER
 app.post('/store-data', async (req, res) => {
     let data = {
         Email: req.body.Email,
@@ -30,7 +31,7 @@ app.post('/store-data', async (req, res) => {
         Senha: req.body.Senha
     }
     let sql = "INSERT INTO users SET ?";
-    const sqlSearch = "SELECT * FROM users WHERE Email = ?";
+    const sqlSearch = "SELECT * FROM users WHERE Email = ?"; // checks to see if user already exists
     db.query(sqlSearch, [req.body.Email], (err, result) => {
         console.log(result)
         if (result.length != 0) {
@@ -43,6 +44,10 @@ app.post('/store-data', async (req, res) => {
             })
         }
     })
+})
+
+app.get('/Login', (req, res) =>{
+    
 })
 
 app.listen(3001, () => {
