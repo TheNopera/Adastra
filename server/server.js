@@ -11,6 +11,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 
 const db = mysql.createConnection({
+    multipleStatements: true,
     host: 'localhost',
     user: 'root',
     password: 'derp123456789',
@@ -46,8 +47,21 @@ app.post('/store-data', async (req, res) => {
     })
 })
 
-app.get('/Login', (req, res) =>{
-    
+
+//Login user
+app.post('/Login', (req, res) => {
+    let passport = {
+        Email: req.body.Email,
+        Senha: req.body.Senha
+    }
+    const sqlSearch = "SELECT * FROM users WHERE Email = ? AND Senha = ?";
+    db.query(sqlSearch, [passport.Email, passport.Senha], (err, result) => {
+        if (result.length != 0) {
+            res.sendStatus(200)
+        } else{
+            res.sendStatus(401)
+        }
+    })
 })
 
 app.listen(3001, () => {
